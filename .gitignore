@@ -1,0 +1,22 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+
+# env files — never commit credentials
+.env
+.env.local
+.env*.local
+
+# debug
+npm-debug.log*
+
+# vercel
+.vercel
+
+# local tooling / temp
+.claude/
+*.tmp
+*.log
