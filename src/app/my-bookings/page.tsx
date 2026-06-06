@@ -279,22 +279,43 @@ export default function MyBookingsPage() {
         </div>
 
         <div className="page-container py-8">
-          {/* Search */}
-          <div className="card p-6 mb-6">
+          {/* How it works — always at the top */}
+          <div className="card p-5 mb-6 bg-primary-light/40 border-primary/10">
+            <h3 className="font-sora font-semibold text-sm text-navy mb-3 flex items-center gap-2">
+              <Info className="w-4 h-4 text-primary" /> How it works
+            </h3>
+            <ol className="space-y-2.5 text-sm text-gray-600">
+              {[
+                ‘Search with the email or phone number you booked with.’,
+                ‘See all your flights, split into Upcoming and Past & Cancelled.’,
+                ‘Open any booking for the full invoice, or cancel an upcoming flight any time before it departs.’,
+              ].map((text, i) => (
+                <li key={i} className="flex items-start gap-2.5">
+                  <span className="w-5 h-5 rounded-full bg-primary text-white text-[11px] font-bold flex items-center justify-center flex-shrink-0 mt-px">
+                    {i + 1}
+                  </span>
+                  {text}
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          {/* Search — in the middle */}
+          <div className="card p-6 mb-8">
             {/* Search-by toggle */}
             <div className="flex items-center gap-3 mb-4">
               <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Search by</span>
               <div className="inline-flex p-0.5 bg-gray-100 rounded-lg">
-                {(['email', 'phone'] as SearchBy[]).map((t) => (
+                {([‘email’, ‘phone’] as SearchBy[]).map((t) => (
                   <button
                     key={t}
                     type="button"
-                    onClick={() => { setSearchBy(t); setError(''); }}
+                    onClick={() => { setSearchBy(t); setError(‘’); }}
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold capitalize transition-all ${
-                      searchBy === t ? 'bg-white text-primary shadow-sm' : 'text-gray-500 hover:text-navy'
+                      searchBy === t ? ‘bg-white text-primary shadow-sm’ : ‘text-gray-500 hover:text-navy’
                     }`}
                   >
-                    {t === 'email' ? <Mail className="w-3.5 h-3.5" /> : <Phone className="w-3.5 h-3.5" />}
+                    {t === ‘email’ ? <Mail className="w-3.5 h-3.5" /> : <Phone className="w-3.5 h-3.5" />}
                     {t}
                   </button>
                 ))}
@@ -303,15 +324,15 @@ export default function MyBookingsPage() {
 
             <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3">
               <div className="flex-1 relative">
-                {searchBy === 'email' ? (
+                {searchBy === ‘email’ ? (
                   <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                 ) : (
                   <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                 )}
                 <input
-                  type={searchBy === 'email' ? 'email' : 'tel'}
-                  inputMode={searchBy === 'email' ? 'email' : 'tel'}
-                  placeholder={searchBy === 'email' ? 'name@example.com' : 'e.g. +64 21 123 4567'}
+                  type={searchBy === ‘email’ ? ‘email’ : ‘tel’}
+                  inputMode={searchBy === ‘email’ ? ‘email’ : ‘tel’}
+                  placeholder={searchBy === ‘email’ ? ‘name@example.com’ : ‘e.g. +64 21 123 4567’}
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   className="input-field pl-10"
@@ -331,31 +352,10 @@ export default function MyBookingsPage() {
             {/* Inline guidance */}
             <p className="text-xs text-gray-400 mt-2.5 flex items-start gap-1.5">
               <Info className="w-3.5 h-3.5 mt-px flex-shrink-0" />
-              {searchBy === 'email'
-                ? 'Enter the email you booked with — capitalisation doesn’t matter.'
-                : 'Enter the phone number you booked with — spaces, dashes and the +64 prefix are all fine.'}
+              {searchBy === ‘email’
+                ? ‘Enter the email you booked with — capitalisation doesn’t matter.’
+                : ‘Enter the phone number you booked with — spaces, dashes and the +64 prefix are all fine.’}
             </p>
-          </div>
-
-          {/* How it works — user guidance */}
-          <div className="card p-5 mb-8 bg-primary-light/40 border-primary/10">
-            <h3 className="font-sora font-semibold text-sm text-navy mb-3 flex items-center gap-2">
-              <Info className="w-4 h-4 text-primary" /> How it works
-            </h3>
-            <ol className="space-y-2.5 text-sm text-gray-600">
-              {[
-                'Search with the email or phone number you booked with.',
-                'See all your flights, split into Upcoming and Past & Cancelled.',
-                'Open any booking for the full invoice, or cancel an upcoming flight any time before it departs.',
-              ].map((text, i) => (
-                <li key={i} className="flex items-start gap-2.5">
-                  <span className="w-5 h-5 rounded-full bg-primary text-white text-[11px] font-bold flex items-center justify-center flex-shrink-0 mt-px">
-                    {i + 1}
-                  </span>
-                  {text}
-                </li>
-              ))}
-            </ol>
           </div>
 
           {/* Cancel success message */}
@@ -440,18 +440,6 @@ export default function MyBookingsPage() {
             </div>
           )}
 
-          {/* Empty state prompt */}
-          {!loading && !submitted && (
-            <div className="card p-12 text-center border-2 border-dashed border-gray-200 bg-transparent shadow-none">
-              <div className="w-16 h-16 rounded-2xl bg-primary-light flex items-center justify-center mx-auto mb-4">
-                <Search className="w-7 h-7 text-primary" />
-              </div>
-              <h3 className="font-sora font-bold text-lg text-navy mb-2">Find Your Bookings</h3>
-              <p className="text-gray-500 text-sm max-w-xs mx-auto">
-                Enter the email or phone number you used when booking to view all your NorthJet flights.
-              </p>
-            </div>
-          )}
         </div>
       </main>
 

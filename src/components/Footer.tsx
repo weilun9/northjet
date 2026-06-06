@@ -76,7 +76,7 @@ export default function Footer() {
 
         <div className="mt-10 pt-6 border-t border-navy-light flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-gray-500">
-            © {new Date().getFullYear()} NorthJet Airways. A 159.352 Assignment 2 project.
+            © {new Date().getFullYear()} NorthJet Airways. A 159.352 (web development) Assignment 2 project. 25020480@massey.ac.nz
           </p>
           <p className="text-xs text-gray-600">
             All times shown in local airport time.
